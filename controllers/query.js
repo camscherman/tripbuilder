@@ -2,14 +2,18 @@ const fpRequest = require('../lib/api_oneway')
 const R = require('ramda')
 const airlines = require('airline-codes')
 const airports = require('airport-codes')
+const {addDeals} = require('../lib/dbUtils')
+
+
 const QueryController = {
 
   async index (req,res,next){
 
-    debugger
     const {depCode, arrCode} = req.query
     const response = await fpRequest.bestTwoWayFlight(depCode, arrCode)
     const easyResponses = R.map((res)=>{return {
+      CntKey: R.path(['price', 'CntKey'], res),
+      CntId: R.path(['price','CntId'], res),
       price: R.path(['price','adultPrice'], res),
       noOfOutBoundLegs: res.outBoundDetails.length,
       outBoundDepDateTime: res.outBoundDetails[0].DepartureDateTime,
@@ -21,9 +25,18 @@ const QueryController = {
       operatedByAirlineInbound: res.inBoundDetails[0].MarketingAirline.Code
 
 
-    }}, response)    
+    }}, response)
+
 
     res.json(easyResponses)
+    await addDeals(easyResponses, depCode, arrCode)
+
+  },
+
+  async show(req, res, next){
+    const {depCode, arrCode} = req.query
+    const allDates = await fpRequest.indexOneWayValue(depCode, arrCode)
+    res.json(allDates)
   }
 }
 

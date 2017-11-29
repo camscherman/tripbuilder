@@ -19,6 +19,7 @@ root.use('/users', users)
 root.use('/tokens', tokens)
 
 query.get('/', QueryController.index)
+query.get('/route',QueryController.show )
 
 users.get('/', UsersController.new)
 users.post('/', UsersController.create)
