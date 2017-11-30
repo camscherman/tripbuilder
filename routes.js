@@ -19,7 +19,9 @@ root.use('/users', users)
 root.use('/tokens', tokens)
 
 query.get('/', QueryController.index)
-query.get('/route',QueryController.show )
+query.get('/show',QueryController.show )
+query.get('/deals', QueryController.deals)
+
 
 users.get('/', UsersController.new)
 users.post('/', UsersController.create)

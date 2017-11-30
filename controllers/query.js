@@ -2,7 +2,7 @@ const fpRequest = require('../lib/api_oneway')
 const R = require('ramda')
 const airlines = require('airline-codes')
 const airports = require('airport-codes')
-const {addDeals} = require('../lib/dbUtils')
+const {addDeals, getDeals} = require('../lib/dbUtils')
 
 
 const QueryController = {
@@ -31,6 +31,12 @@ const QueryController = {
     res.json(easyResponses)
     await addDeals(easyResponses, depCode, arrCode)
 
+  },
+
+  async deals(req, res, next){
+    const {depCode, arrCode} = req.query
+    const response = await getDeals(depCode, arrCode)
+    res.json(response)
   },
 
   async show(req, res, next){
