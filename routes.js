@@ -18,9 +18,10 @@ root.use('/query', query)
 root.use('/users', users)
 root.use('/tokens', tokens)
 
-query.get('/', QueryController.index)
-query.get('/show',QueryController.show )
 query.get('/deals', QueryController.deals)
+query.get('/show',QueryController.show )
+query.get('/allroutes', QueryController.allRoutes)
+query.get('/', QueryController.index)
 
 
 users.get('/', UsersController.new)

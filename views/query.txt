@@ -1,0 +1,1 @@
+SELECT AVG(min) FROM (SELECT "dep-time", MIN(price) as min FROM "flights" INNER JOIN "trips" ON "outBoundId" = "segmentId" WHERE "arrival" = 'BKK' GROUP BY "dep-time") as minprice  
