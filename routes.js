@@ -21,6 +21,7 @@ root.use('/tokens', tokens)
 query.get('/deals', QueryController.deals)
 query.get('/show',QueryController.show )
 query.get('/allroutes', QueryController.allRoutes)
+// query.get('/twowayonedate', QueryController.getOneDate) request function not working properly
 query.get('/', QueryController.index)
 
 
